@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quiz Anime</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--tx:#1d1b20;--mut:#6b6670;--ac:#e0473c;--ok:#1f9d55;--bad:#d93a3a;--bd:#e6e0d8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15131a;--card:#201d28;--tx:#f3f0f7;--mut:#a29cad;--ac:#ff6a5c;--ok:#3ecf7a;--bad:#ff6b6b;--bd:#332f3d}}
+:root[data-theme="dark"]{--bg:#15131a;--card:#201d28;--tx:#f3f0f7;--mut:#a29cad;--ac:#ff6a5c;--ok:#3ecf7a;--bad:#ff6b6b;--bd:#332f3d}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:28px;margin:8px 0 4px}
+p{line-height:1.5}
+.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px;margin:14px 0}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{display:block;width:100%;padding:14px 16px;margin:10px 0;border-radius:12px;border:1px solid var(--bd);background:var(--card);text-align:left;font-size:16px}
+.btn:active{transform:scale(.98)}
+.pri{background:var(--ac);color:#fff;border-color:var(--ac);text-align:center;font-weight:600}
+.lv{display:flex;justify-content:space-between;align-items:center}
+.lv small{color:var(--mut)}
+.top{display:flex;justify-content:space-between;font-size:14px;color:var(--mut)}
+.bar{height:6px;background:var(--bd);border-radius:3px;margin:8px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ac);transition:width .3s}
+.q{font-size:19px;font-weight:600;line-height:1.4;margin:6px 0 12px}
+.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}
+.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--card))}
+.big{font-size:56px;font-weight:700;text-align:center;margin:6px 0}
+.c{text-align:center}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var Q=[
+{d:1,q:"Em One Piece, qual é o grande sonho de Luffy?",o:["Ser o Rei dos Piratas","Virar Almirante da Marinha","Ser o maior espadachim","Encontrar o All Blue"]},
+{d:1,q:"Em Naruto, qual é o nome da raposa de nove caudas selada dentro dele?",o:["Kurama","Shukaku","Matatabi","Gyuki"]},
+{d:1,q:"Em Dragon Ball, a qual raça Goku pertence?",o:["Saiyajin","Namekusei","Majin","Terráqueo"]},
+{d:1,q:"Em Death Note, qual shinigami deixa o caderno cair no mundo humano?",o:["Ryuk","Rem","Gelus","Sidoh"]},
+{d:1,q:"Em Attack on Titan, qual é o nome do protagonista?",o:["Eren Yeager","Levi Ackerman","Armin Arlert","Jean Kirstein"]},
+{d:1,q:"Em Demon Slayer, qual estilo de respiração Tanjiro aprende primeiro?",o:["Respiração da Água","Respiração das Chamas","Respiração do Trovão","Respiração da Pedra"]},
+{d:1,q:"No anime de Pokémon, qual é o Pokémon inicial de Ash?",o:["Pikachu","Charmander","Squirtle","Bulbasaur"]},
+{d:1,q:"Em My Hero Academia, quem passa o One For All para Deku?",o:["All Might","Endeavor","Hawks","Aizawa"]},
+{d:2,q:"Em Fullmetal Alchemist, qual é o princípio básico da alquimia?",o:["Troca equivalente","Lei do mais forte","Equilíbrio cósmico","Transmutação humana"]},
+{d:2,q:"Em Jujutsu Kaisen, quem é o professor de Yuji Itadori?",o:["Satoru Gojo","Kento Nanami","Megumi Fushiguro","Suguru Geto"]},
+{d:2,q:"Em Hunter x Hunter, quem é o melhor amigo de Gon, vindo de uma família de assassinos?",o:["Killua","Kurapika","Leorio","Hisoka"]},
+{d:2,q:"Em Cowboy Bebop, qual é a profissão da tripulação da nave?",o:["Caçadores de recompensas","Piratas espaciais","Mercenários de guerra","Detetives particulares"]},
+{d:2,q:"Em Neon Genesis Evangelion, quem pilota o EVA-01?",o:["Shinji Ikari","Rei Ayanami","Asuka Langley","Kaworu Nagisa"]},
+{d:2,q:"Em Bleach, qual é o nome da espada de Ichigo?",o:["Zangetsu","Senbonzakura","Zabimaru","Hyorinmaru"]},
+{d:2,q:"Em A Viagem de Chihiro, quem é a bruxa que rouba os nomes das pessoas?",o:["Yubaba","Zeniba","Kamaji","Haku"]},
+{d:3,q:"Qual é o nome da Akuma no Mi que deu a Luffy o corpo de borracha?",o:["Gomu Gomu no Mi","Mera Mera no Mi","Hito Hito no Mi","Yami Yami no Mi"]},
+{d:3,q:"Em Steins;Gate, qual aparelho do laboratório permite enviar mensagens ao passado?",o:["Micro-ondas de telefone","Relógio quântico","Painel de divergência","Câmara criogênica"]},
+{d:3,q:"Em Attack on Titan, qual é a muralha mais interna?",o:["Sina","Maria","Rose","Paradis"]},
+{d:3,q:"Em Naruto, qual Hokage morreu selando a Kurama em Naruto bebê?",o:["Minato Namikaze","Hiruzen Sarutobi","Tobirama Senju","Hashirama Senju"]},
+{d:3,q:"Em Hunter x Hunter, qual é o golpe característico de Gon?",o:["Jajanken","Rasengan","Kamehameha","Gomu Gomu no Pistol"]}
+];
+var NOMES={1:"Fácil",2:"Médio",3:"Difícil",0:"Misto"};
+var app=document.getElementById("app"),S={};
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function getBest(l){try{return parseInt(localStorage.getItem("qa-best-"+l))||0}catch(e){return 0}}
+function setBest(l,v){try{localStorage.setItem("qa-best-"+l,v)}catch(e){}}
+function menu(){
+  var h='<h1>🎌 Quiz Anime</h1><p class="mut">Teste o quanto você conhece de anime. Escolha um nível:</p>';
+  [[1,"Fácil","Os clássicos que todo mundo viu"],[2,"Médio","Para quem acompanha de verdade"],[3,"Difícil","Só para os veteranos"],[0,"Misto","10 perguntas aleatórias"]].forEach(function(x){
+    var b=getBest(x[0]);
+    h+='<button class="btn lv" onclick="start('+x[0]+')"><span><b>'+x[1]+'</b><br><small>'+x[2]+'</small></span><small>'+(b?'Recorde: '+b:'')+'</small></button>';
+  });
+  app.innerHTML=h;
+}
+function start(l){
+  var pool=l?Q.filter(function(q){return q.d===l}):shuf(Q).slice(0,10);
+  S={l:l,list:shuf(pool).map(function(q){var c=q.o[0],o=shuf(q.o);return{q:q.q,o:o,a:o.indexOf(c)}}),i:0,sc:0,done:false};
+  render();
+}
+function render(){
+  var q=S.list[S.i],n=S.list.length;
+  var h='<div class="top"><span>Pergunta '+(S.i+1)+'/'+n+' · '+NOMES[S.l]+'</span><span>Pontos: '+S.sc+'</span></div>';
+  h+='<div class="bar"><i style="width:'+(S.i/n*100)+'%"></i></div><div class="q">'+q.q+'</div>';
+  q.o.forEach(function(t,k){h+='<button class="btn" id="o'+k+'" onclick="pick('+k+')">'+t+'</button>'});
+  h+='<div id="nx"></div>';
+  app.innerHTML=h;
+}
+function pick(k){
+  if(S.done)return;S.done=true;
+  var q=S.list[S.i];
+  if(k===q.a)S.sc++;
+  q.o.forEach(function(t,j){var e=document.getElementById("o"+j);if(j===q.a)e.className+=" ok";else if(j===k)e.className+=" bad"});
+  document.getElementById("nx").innerHTML='<button class="btn pri" onclick="next()">'+(S.i+1<S.list.length?'Próxima':'Ver resultado')+'</button>';
+}
+function titulo(p){return p>=90?"Mestre dos Animes 👑":p>=70?"Veterano 🔥":p>=40?"Otaku em treino 📺":"Iniciante 🌱"}
+function next(){S.done=false;S.i++;if(S.i<S.list.length)render();else result()}
+function result(){
+  var n=S.list.length,p=Math.round(S.sc/n*100),b=getBest(S.l),novo=S.sc>b;
+  if(novo){setBest(S.l,S.sc);b=S.sc}
+  S.txt="Fiz "+S.sc+"/"+n+" no Quiz Anime ("+NOMES[S.l]+") e ganhei o título de "+titulo(p)+". Consegue me superar?";
+  app.innerHTML='<div class="card c"><div class="mut">Seu resultado</div><div class="big">'+S.sc+'/'+n+'</div><h2>'+titulo(p)+'</h2><p class="mut">'+(novo?'Novo recorde neste nível! 🎉':'Seu recorde neste nível: '+b)+'</p></div>'+
+  '<button class="btn pri" onclick="share()">Compartilhar resultado</button>'+
+  '<button class="btn" onclick="start('+S.l+')">Jogar de novo</button>'+
+  '<button class="btn" onclick="menu()">Trocar de nível</button><p class="c mut" id="msg"></p>';
+}
+function share(){
+  var m=document.getElementById("msg"),t=S.txt+" "+location.href;
+  function copia(){try{navigator.clipboard.writeText(t).then(function(){m.textContent="Texto copiado! Cole onde quiser."},function(){m.textContent=t})}catch(e){m.textContent=t}}
+  try{if(navigator.share){navigator.share({text:S.txt,url:location.href}).catch(copia)}else copia()}catch(e){copia()}
+}
+menu();
+</script>
+</body>
+</html>
